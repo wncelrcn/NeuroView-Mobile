@@ -33,7 +33,7 @@ import com.example.neuroviewexam.R
 import com.example.neuroviewexam.data.TumorData
 import com.example.neuroviewexam.ui.theme.NeuroViewExamTheme
 
-// Accompanist Pager imports
+
 import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.rememberPagerState
@@ -113,7 +113,6 @@ fun DashboardScreen() {
                         .aspectRatio(1f)
                         .background(Color.Transparent, RoundedCornerShape(16.dp))
                         .clickable {
-                            // Navigate to TumorDetailActivity using Intent
                             val intent = Intent(context, TumorDetailActivity::class.java)
                             intent.putExtra("tumor_name", tumor.name)
                             context.startActivity(intent)

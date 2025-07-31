@@ -36,7 +36,6 @@ class ResultActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         
-        // Get data from Intent extras
         val predictionJson = intent.getStringExtra("prediction_json")
         val imageUri = intent.getStringExtra("image_uri")
         
@@ -80,7 +79,6 @@ fun ResultScreen(
         }
     }
 
-    // Process the image URI
     val decodedImageUri = remember(imageUri) {
         imageUri?.let { uri ->
             try {
@@ -163,7 +161,6 @@ fun PredictionResultContent(
     val confidence = predictionData.confidence ?: 0.0
     val classProbs = predictionData.class_probabilities ?: emptyMap()
 
-    // Main prediction result card
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -228,7 +225,6 @@ fun PredictionResultContent(
         Spacer(modifier = Modifier.height(24.dp))
     }
 
-    // Class probabilities
     if (classProbs.isNotEmpty()) {
         Column(
             modifier = Modifier.fillMaxWidth(),
@@ -259,7 +255,6 @@ fun PredictionResultContent(
 
     Spacer(modifier = Modifier.height(32.dp))
 
-    // Insights section
     InsightsSection(tumorType = tumorType, confidence = confidence)
 
     Spacer(modifier = Modifier.height(32.dp))
@@ -372,8 +367,7 @@ fun NoResultContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Show uploaded image even if analysis failed
-        imageUri?.let { uri ->
+            imageUri?.let { uri ->
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -410,8 +404,7 @@ fun NoResultContent(
             Spacer(modifier = Modifier.height(16.dp))
         }
 
-        // Show different messages based on what data we have
-        when {
+            when {
             !hasRawJson -> {
                 Text(
                     text = "No prediction data was received.\n\nThis means the Intent parameter was not passed correctly from the upload screen.\n\nCheck the debug info below to see what data was attempted to be passed.",
@@ -452,8 +445,7 @@ fun NoResultContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Debug info card
-        Card(
+            Card(
             modifier = Modifier.fillMaxWidth(),
             colors = CardDefaults.cardColors(containerColor = Color(0xFF1A1A1A)),
             shape = RoundedCornerShape(8.dp)

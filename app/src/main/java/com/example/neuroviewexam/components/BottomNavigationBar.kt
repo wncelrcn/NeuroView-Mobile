@@ -39,7 +39,7 @@ fun BottomNavigationBar(
 ) {
     val context = LocalContext.current
     
-    // We'll create these activities later
+
     val items = listOf(
         BottomNavItem(
             activityClass = try { Class.forName("com.example.neuroviewexam.activities.DashboardActivity") } catch (e: Exception) { Any::class.java },
@@ -77,7 +77,7 @@ fun BottomNavigationBar(
             shape = RoundedCornerShape(28.dp),
             shadowElevation = 8.dp
         ) {
-            // Empty surface for background
+
         }
 
         Row(

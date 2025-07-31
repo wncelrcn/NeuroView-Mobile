@@ -46,7 +46,7 @@ data class ImageData(
     val name: String,
     val url: String,
     val uploaded_at: String,
-    val information: PredictionData? = null // Add information field for past records
+    val information: PredictionData? = null
 )
 
 @Serializable
@@ -59,10 +59,7 @@ data class PastRecordsResponse(
 
 
 class ApiService {
-    // Make sure this baseUrl is correct for fetching all records.
-    // Based on the JSON, it looks like it might be the same endpoint used for uploads,
-    // but without any specific ID or file. You might need to confirm this with your backend.
-    private val baseUrl = "http://192.168.1.12:5001/api/auto" // Assuming this endpoint fetches all records with a GET request
+    private val baseUrl = "http://192.168.1.12:5001/api/auto"
 
     private val client = HttpClient(Android) {
         install(ContentNegotiation) {
@@ -116,7 +113,6 @@ class ApiService {
                 formData = formData {
                     append("file", imageBytes, Headers.build {
                         append(HttpHeaders.ContentType, mimeType)
-                        // Remove quotes from filename
                         append(HttpHeaders.ContentDisposition, "form-data; name=file; filename=$fileName")
                     })
                     append("name", imageName)
@@ -157,7 +153,7 @@ class ApiService {
     suspend fun getPastRecords(): Result<PastRecordsResponse> {
         return try {
             println("NeuroView: Fetching past records from $baseUrl")
-            val response: HttpResponse = client.get(baseUrl) // Assuming GET to baseUrl fetches all records
+            val response: HttpResponse = client.get(baseUrl)
 
             println("NeuroView: Past Records Response status: ${response.status}")
 

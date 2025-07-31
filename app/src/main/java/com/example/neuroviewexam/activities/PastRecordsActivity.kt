@@ -236,7 +236,7 @@ fun PastRecordsScreen() {
                                         RecordCard(
                                             record = record,
                                             onCardClick = { clickedRecord ->
-                                                // Navigate to ResultActivity with Intent extras
+
                                                 clickedRecord.information?.let { predictionInfo ->
                                                     try {
                                                         val json = Json {
@@ -257,7 +257,7 @@ fun PastRecordsScreen() {
                                         )
                                     }
                                 }
-                                // If there's only one item in the last row, add an empty box to balance
+
                                 if (rowItems.size == 1) {
                                     Spacer(modifier = Modifier.weight(1f).padding(horizontal = 8.dp))
                                 }
@@ -309,7 +309,7 @@ fun RecordCard(record: ImageData, onCardClick: (ImageData) -> Unit) {
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            // Image Box with fixed height
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -327,7 +327,7 @@ fun RecordCard(record: ImageData, onCardClick: (ImageData) -> Unit) {
                 )
             }
 
-            // Text elements
+
             Text(
                 text = record.information?.tumor_type?.replaceFirstChar { 
                     if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() 
@@ -345,7 +345,7 @@ fun RecordCard(record: ImageData, onCardClick: (ImageData) -> Unit) {
                 fontSize = 12.sp
             )
 
-            // Date and View > in a Row
+
             val inputFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXX", Locale.getDefault())
             val outputFormat = SimpleDateFormat("MMMM d, yyyy", Locale.getDefault())
             val date = try {

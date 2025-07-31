@@ -16,21 +16,21 @@ import com.example.neuroviewexam.R
 
 @Composable
 fun TopAppBar(
-    backgroundColor: Color = Color.Black, // Changed to black to match the image
-    textColor: Color = Color.White,     // Changed to white to match the image
-    logoSize: Int = 36,                 // Adjusted for a slightly larger logo relative to text
-    titleFontSize: Int = 24,            // Kept as is, matches visual
+    backgroundColor: Color = Color.Black,
+    textColor: Color = Color.White,
+    logoSize: Int = 36,
+    titleFontSize: Int = 24,
     barHeight: Int = 64,
     horizontalPadding: Int = 18,
-    topPadding: Int = 10,        // Add vertical padding from top
-    bottomPadding: Int = 0,     // Add vertical padding from bottom
-    verticalOffset: Int = 0     // Add vertical offset to move entire bar up/down
+    topPadding: Int = 10,
+    bottomPadding: Int = 0,
+    verticalOffset: Int = 0
 ) {
     Surface(
         modifier = Modifier
             .fillMaxWidth()
             .height((barHeight + topPadding + bottomPadding).dp)
-            .offset(y = verticalOffset.dp), // Apply vertical offset
+            .offset(y = verticalOffset.dp),
         color = backgroundColor,
         shadowElevation = 0.dp
     ) {
@@ -46,16 +46,16 @@ fun TopAppBar(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
-            // Logo
+
             Image(
-                painter = painterResource(id = R.drawable.topbar_logo), // You can change this to your app logo
+                painter = painterResource(id = R.drawable.topbar_logo),
                 contentDescription = "NeuroView Logo",
                 modifier = Modifier
                     .size(logoSize.dp)
                     .padding(end = 8.dp)
             )
 
-            // App Title
+
             Text(
                 text = "NeuroView",
                 fontSize = titleFontSize.sp,

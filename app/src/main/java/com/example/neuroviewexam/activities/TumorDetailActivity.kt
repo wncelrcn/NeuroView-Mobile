@@ -37,7 +37,6 @@ class TumorDetailActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         
-        // Get tumor name from Intent extras
         val tumorName = intent.getStringExtra("tumor_name")
         
         setContent {
@@ -55,7 +54,7 @@ fun TumorDetailScreen(tumorName: String?) {
     val tumor = tumorName?.let { TumorData.getTumorByName(it) }
 
     if (tumor == null) {
-        // Handle case where tumor is not found
+
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -73,7 +72,6 @@ fun TumorDetailScreen(tumorName: String?) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Button(
                     onClick = { 
-                        // Navigate back to DashboardActivity using Intent
                         val intent = Intent(context, DashboardActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                         context.startActivity(intent)
@@ -101,8 +99,7 @@ fun TumorDetailScreen(tumorName: String?) {
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = { 
-                        // Navigate back to DashboardActivity using Intent
+                    IconButton(                    onClick = { 
                         val intent = Intent(context, DashboardActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                         context.startActivity(intent)
@@ -115,8 +112,7 @@ fun TumorDetailScreen(tumorName: String?) {
                     }
                 },
                 actions = {
-                    // Add an invisible icon to balance the space taken by the navigation icon
-                    IconButton(onClick = { /* Do nothing, this is just for spacing */ }) {
+                    IconButton(onClick = { }) {
                         Icon(
                             imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                             contentDescription = null,
@@ -141,7 +137,7 @@ fun TumorDetailScreen(tumorName: String?) {
         ) {
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Tumor Title (centered and larger)
+
             Text(
                 text = tumor.name,
                 fontSize = 32.sp,
@@ -153,7 +149,7 @@ fun TumorDetailScreen(tumorName: String?) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Tumor Image
+
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -173,7 +169,7 @@ fun TumorDetailScreen(tumorName: String?) {
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            // Detailed Description
+
             Text(
                 text = tumor.detailedDescription,
                 fontSize = 16.sp,
@@ -186,7 +182,7 @@ fun TumorDetailScreen(tumorName: String?) {
 
             Spacer(modifier = Modifier.height(36.dp))
 
-            // Common Symptoms Section
+
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -219,7 +215,7 @@ fun TumorDetailScreen(tumorName: String?) {
 
             Spacer(modifier = Modifier.height(36.dp))
 
-            // Treatment Section
+
             Column(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally

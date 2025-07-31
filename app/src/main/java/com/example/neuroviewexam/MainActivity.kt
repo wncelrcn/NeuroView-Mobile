@@ -84,7 +84,6 @@ fun HomeScreen() {
 
             Button(
                 onClick = {
-                    // Navigate to DashboardActivity using Intent
                     val intent = Intent(context, Class.forName("com.example.neuroviewexam.activities.DashboardActivity"))
                     context.startActivity(intent)
                 },

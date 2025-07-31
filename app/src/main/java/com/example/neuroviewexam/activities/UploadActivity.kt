@@ -105,7 +105,6 @@ fun UploadScreen() {
                     )
                     IconButton(
                         onClick = {
-                            // Navigate back to DashboardActivity
                             val intent = Intent(context, DashboardActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
                             context.startActivity(intent)
@@ -168,7 +167,7 @@ fun UploadScreen() {
                                                 val imageUriString = uri.toString()
                                                 println("NeuroView: Image URI: $imageUriString")
                                                 
-                                                // Navigate to ResultActivity using Intent with extras
+
                                                 val intent = Intent(context, ResultActivity::class.java)
                                                 intent.putExtra("prediction_json", predictionJson)
                                                 intent.putExtra("image_uri", imageUriString)
