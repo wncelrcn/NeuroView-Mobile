@@ -61,7 +61,7 @@ fun ResultScreen(
         predictionJson?.let { json ->
             try {
                 println("NeuroView: Raw prediction JSON: $json")
-                
+
                 val jsonParser = Json {
                     ignoreUnknownKeys = true
                     isLenient = true
@@ -129,9 +129,9 @@ fun ResultScreen(
                 color = Color(0xFF737373),
                 textAlign = TextAlign.Center
             )
-            
+
             Spacer(modifier = Modifier.height(2.dp))
-            
+
             if (predictionData != null && predictionData.success) {
                 PredictionResultContent(
                     predictionData = predictionData,
@@ -148,6 +148,18 @@ fun ResultScreen(
                     )
                 )
             }
+
+            // Disclaimer
+            Spacer(modifier = Modifier.height(12.dp))
+            Text(
+                text = "Important: This information is for educational purposes only and should not replace professional medical advice. Always consult with qualified healthcare professionals for accurate diagnosis and treatment recommendations.",
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Normal,
+                color = Color(0xFFB0B0B0),
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 8.dp)
+            )
+            Spacer(modifier = Modifier.height(12.dp)) // Add some padding after the disclaimer
         }
     }
 }
@@ -496,40 +508,52 @@ fun NoResultContent(
 }
 
 fun getInsightsForTumorType(tumorType: String, confidence: Double): List<String> {
-    val baseInsights = when (tumorType.lowercase()) {
+    val insights = when (tumorType.lowercase()) {
         "glioma" -> listOf(
-            "Gliomas are tumors that arise from glial cells in the brain",
-            "They account for about 80% of malignant brain tumors",
-            "Treatment typically involves surgery, radiation, and chemotherapy"
+            "Gliomas are brain tumors originating from glial (supportive) cells.",
+            "They are the most common malignant primary brain tumors, making up ~80%.",
+            "Symptoms may include headaches, seizures, memory loss, or personality changes.",
+            "Tumor aggressiveness is classified from Grade I (least) to Grade IV (most aggressive).",
+            "Treatment often includes surgery, radiation, and chemotherapy depending on grade and location."
         )
         "meningioma" -> listOf(
-            "Meningiomas arise from the meninges that cover the brain",
-            "Most meningiomas are benign and grow slowly",
-            "Treatment options include observation, surgery, or radiation therapy"
+            "Meningiomas are tumors arising from the meninges, the brain’s protective layers.",
+            "They are often slow-growing and benign, but can occasionally be atypical or malignant.",
+            "Common symptoms include vision changes, headaches, or memory difficulties.",
+            "Incidence is higher in women and increases with age.",
+            "Treatment may involve monitoring, surgery, or radiation therapy depending on size and symptoms."
         )
         "pituitary" -> listOf(
-            "Pituitary tumors occur in the pituitary gland",
-            "Most are benign and may affect hormone production",
-            "Treatment may include medication, surgery, or radiation"
+            "Pituitary tumors develop in the pituitary gland at the base of the brain.",
+            "Most are benign adenomas that may affect hormone production.",
+            "They can cause vision issues, fatigue, weight changes, or hormonal imbalances.",
+            "They are classified as functioning (hormone-secreting) or non-functioning.",
+            "Treatment can include medication, surgery, or radiation depending on the tumor's effects."
         )
         "notumor" -> listOf(
-            "No tumor detected in the brain scan",
-            "The brain tissue appears normal",
-            "Regular monitoring may still be recommended"
+            "No tumor or abnormal growth was detected in the brain scan.",
+            "Brain structures, blood vessels, and tissues appear healthy.",
+            "Signs of brain health include normal tissue density, symmetry, and cerebrospinal fluid.",
+            "No medical treatment is required, but continued healthy habits are encouraged.",
+            "Routine check-ups and mental wellness practices support ongoing brain health."
         )
-        else -> listOf("Unable to provide specific insights for this classification")
+        else -> listOf(
+            "No detailed medical insights available for this classification.",
+            "Consider consulting a medical professional for further evaluation."
+        )
     }
 
     val confidenceInsight = when {
-        confidence >= 0.9 -> "Very high confidence in this prediction"
-        confidence >= 0.8 -> "High confidence in this prediction"
-        confidence >= 0.7 -> "Moderate confidence in this prediction"
-        confidence >= 0.6 -> "Fair confidence in this prediction"
-        else -> "Low confidence - further analysis recommended"
+        confidence >= 0.95 -> "Prediction made with very high confidence. Diagnosis is likely reliable."
+        confidence >= 0.85 -> "High confidence in prediction. Results can be considered dependable."
+        confidence >= 0.7 -> "Moderate confidence. Consider clinical validation if symptoms persist."
+        confidence >= 0.6 -> "Fair confidence. Use with caution and consult a healthcare provider."
+        else -> "Low prediction confidence. Recommend retesting or further clinical evaluation."
     }
 
-    return baseInsights + confidenceInsight
+    return insights + confidenceInsight
 }
+
 
 @Preview(showBackground = true)
 @Composable
