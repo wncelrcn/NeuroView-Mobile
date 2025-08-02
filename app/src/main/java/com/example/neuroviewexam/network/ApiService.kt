@@ -59,7 +59,7 @@ data class PastRecordsResponse(
 
 
 class ApiService {
-    private val baseUrl = "http://192.168.1.12:5001/api/auto"
+    private val baseUrl = "https://neuroview-backend.onrender.com/api/auto"
 
     private val client = HttpClient(Android) {
         install(ContentNegotiation) {
