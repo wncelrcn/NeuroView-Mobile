@@ -86,52 +86,61 @@ fun UploadScreen() {
                 .background(Color.Black)
                 .padding(paddingValues)
                 .padding(16.dp),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.fillMaxWidth()
+            // Top section with header and content
+            Column(
+                modifier = Modifier.weight(1f),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Box(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentAlignment = Alignment.Center
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
                 ) {
-                    Text(
-                        text = "UPLOAD",
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color(0xFF737373)
-                    )
-                    IconButton(
-                        onClick = {
-                            val intent = Intent(context, DashboardActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                            context.startActivity(intent)
-                        },
-                        modifier = Modifier.align(Alignment.CenterStart)
+                    Box(
+                        modifier = Modifier.fillMaxWidth(),
+                        contentAlignment = Alignment.Center
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Color(0xFF737373)
+                        Text(
+                            text = "UPLOAD",
+                            fontSize = 20.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF737373)
                         )
+                        IconButton(
+                            onClick = {
+                                val intent = Intent(context, DashboardActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+                                context.startActivity(intent)
+                            },
+                            modifier = Modifier.align(Alignment.CenterStart)
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.ArrowBack,
+                                contentDescription = "Back",
+                                tint = Color(0xFF737373)
+                            )
+                        }
                     }
                 }
-            }
 
-            Spacer(modifier = Modifier.height(16.dp))
-
-            selectedImageUri?.let { uri ->
-                ImageInfoBox(uri = uri, onDelete = { selectedImageUri = null })
                 Spacer(modifier = Modifier.height(16.dp))
+
+                selectedImageUri?.let { uri ->
+                    ImageInfoBox(uri = uri, onDelete = { selectedImageUri = null })
+                    Spacer(modifier = Modifier.height(16.dp))
+                }
+
+                // Responsive dashed box that takes available space
+                DashedBorderBox(
+                    onClick = { imagePickerLauncher.launch("image/*") },
+                    modifier = Modifier.weight(1f)
+                )
             }
 
-            DashedBorderBox(onClick = {
-                imagePickerLauncher.launch("image/*")
-            })
-
-            Spacer(modifier = Modifier.height(32.dp))
+            // Bottom button section - always visible
+            Spacer(modifier = Modifier.height(16.dp))
 
             Button(
                 onClick = {
@@ -231,14 +240,12 @@ fun UploadScreen() {
 }
 
 @Composable
-fun DashedBorderBox(onClick: () -> Unit) {
+fun DashedBorderBox(onClick: () -> Unit, modifier: Modifier = Modifier) {
     val cornerRadius = 12.dp
-    val boxHeight = 550.dp
 
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
-            .height(boxHeight)
             .padding(4.dp)
             .clickable { onClick() },
         contentAlignment = Alignment.Center
